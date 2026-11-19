@@ -18,7 +18,22 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from spatial_edit_audit import generate_main_case, load_section_baseline  # noqa: E402
+from spatial_edit_audit.baselines import score_dual_latent_views  # noqa: E402
 from spatial_edit_audit.contrast import budget_tile_count, build_contrast_operator, score_candidate_pool_fast  # noqa: E402
+
+
+def _best_cluster_f1(emb: np.ndarray, t_mask: np.ndarray, n_clusters: int, seed: int = 2026) -> float:
+    preds = KMeans(n_clusters=int(n_clusters), n_init=3, random_state=seed).fit_predict(emb)
+    n_t = int(t_mask.sum())
+    best = 0.0
+    for cid in np.unique(preds):
+        c_mask = preds == cid
+        tp = int((c_mask & t_mask).sum())
+        if tp > 0:
+            f1 = 2.0 * tp / float(int(c_mask.sum()) + n_t)
+            if f1 > best:
+                best = f1
+    return float(best)
 
 
 def main() -> None:
@@ -53,7 +68,10 @@ def main() -> None:
         m_cap = budget_tile_count(0.03, bl.n_tiles)
         out[bg_name] = {}
         for s_label, stratum in (("S6_concordant", 6), ("S8_boundary", 8), ("S9_asymmetric", 9), ("N2_decoys", 2)):
-            hits_c, f1_km, decoy_a, decoy_b, any_decoy = [], [], [], [], []
+            hits_c, hits_dmin, hits_dmean = [], [], []
+            f1_km12, f1_kmtiles = [], []
+            decoy_a, decoy_b, any_decoy = [], [], []
+            dmin_a, dmin_b, dmin_any = [], [], []
             for rep in range(1, int(args.replicates) + 1):
                 c = generate_main_case(bl, block=2, stratum=stratum, rep=rep, fit_i_case=False)
                 a1 = ad.AnnData(X=np.zeros((bl.n_spots, 1), dtype=np.float32))
@@ -69,32 +87,49 @@ def main() -> None:
                     )
                     res = model.train()
                 emb = res["SpatialGlue"]
+                emb_1 = res["emb_latent_omics1"]
+                emb_2 = res["emb_latent_omics2"]
+
                 ep_sg, _ = score_candidate_pool_fast(op, scorable, emb, emb)
                 idx = np.flatnonzero(scorable)
                 chosen = idx[np.lexsort((idx, -ep_sg[idx]))][:m_cap]
+
+                dual_res = score_dual_latent_views(bl, emb_1, emb_2, budget_fraction=0.03)
+                chosen_dmin = dual_res["selected"]["min"]
+                chosen_dmean = dual_res["selected"]["mean"]
+
                 pos = c["positions"]
                 if "T" in pos:
-                    hits_c.append(int(pos["T"] in chosen))
-                    preds = KMeans(n_clusters=12, n_init=3, random_state=2026).fit_predict(emb)
+                    t_idx = pos["T"]
+                    hits_c.append(int(t_idx in chosen))
+                    hits_dmin.append(int(t_idx in chosen_dmin))
+                    hits_dmean.append(int(t_idx in chosen_dmean))
                     t_mask = np.zeros(bl.n_spots, dtype=bool)
-                    t_mask[bl.members_by_tile[pos["T"]]] = True
-                    best = max(
-                        2.0 * int(((preds == cid) & t_mask).sum()) / float(int((preds == cid).sum()) + int(t_mask.sum()))
-                        for cid in np.unique(preds)
-                        if ((preds == cid) & t_mask).any()
-                    )
-                    f1_km.append(best)
+                    t_mask[bl.members_by_tile[t_idx]] = True
+                    f1_km12.append(_best_cluster_f1(emb, t_mask, n_clusters=12))
+                    f1_kmtiles.append(_best_cluster_f1(emb, t_mask, n_clusters=bl.n_tiles))
                 da = int(pos["A"] in chosen) if "A" in pos else 0
                 db = int(pos["B"] in chosen) if "B" in pos else 0
                 decoy_a.append(da)
                 decoy_b.append(db)
                 any_decoy.append(int(da or db))
+                dm_a = int(pos["A"] in chosen_dmin) if "A" in pos else 0
+                dm_b = int(pos["B"] in chosen_dmin) if "B" in pos else 0
+                dmin_a.append(dm_a)
+                dmin_b.append(dm_b)
+                dmin_any.append(int(dm_a or dm_b))
             out[bg_name][s_label] = {
                 "sg_contrast_3pct_hit": None if not hits_c else round(float(np.mean(hits_c)), 4),
-                "sg_kmeans_best_f1": None if not f1_km else round(float(np.mean(f1_km)), 4),
+                "sg_dual_latent_min_3pct_hit": None if not hits_dmin else round(float(np.mean(hits_dmin)), 4),
+                "sg_dual_latent_mean_3pct_hit": None if not hits_dmean else round(float(np.mean(hits_dmean)), 4),
+                "sg_kmeans12_best_f1": None if not f1_km12 else round(float(np.mean(f1_km12)), 4),
+                "sg_kmeans_matched_best_f1": None if not f1_kmtiles else round(float(np.mean(f1_kmtiles)), 4),
                 "decoy_a_3pct_rate": round(float(np.mean(decoy_a)), 4),
                 "decoy_b_3pct_rate": round(float(np.mean(decoy_b)), 4),
                 "any_decoy_3pct_rate": round(float(np.mean(any_decoy)), 4),
+                "dual_latent_min_decoy_a_rate": round(float(np.mean(dmin_a)), 4),
+                "dual_latent_min_decoy_b_rate": round(float(np.mean(dmin_b)), 4),
+                "dual_latent_min_any_decoy_rate": round(float(np.mean(dmin_any)), 4),
             }
 
     (res_dir / "spatialglue_baseline_summary.json").write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")

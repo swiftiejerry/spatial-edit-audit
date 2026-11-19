@@ -47,8 +47,13 @@ def main() -> None:
     for dose_label, dose_val in (("dose_6.0", 6.0), ("dose_3.0", 3.0)):
         dose_out: dict[str, object] = {}
         for bg_name, bl in baselines.items():
-            bg_rows: dict[str, list[float]] = {k: [] for k in ("D1", "D1_filtered", "D2", "F")}
-            bg_upper: dict[str, list[float]] = {k: [] for k in ("D1", "D1_filtered", "D2", "F")}
+            srcs = ("F", "D1", "D1_filtered", "D2")
+            bg_rows: dict[str, list[float]] = {k: [] for k in srcs}
+            bg_upper: dict[str, list[float]] = {k: [] for k in srcs}
+            bg_out: dict[str, list[int]] = {k: [] for k in srcs}
+            bg_excl: dict[str, list[int]] = {k: [] for k in srcs}
+            bg_sel_pts: dict[str, list[int]] = {k: [] for k in srcs}
+            bg_max_sz: dict[str, list[int]] = {k: [] for k in srcs}
             for rep in range(1, 31):
                 case = generate_secondary_case(bl, rep=rep, block=3, dose=dose_val)
                 pools = build_grown_patch_candidates(bl, case["X_P"], include_filtered_ward=True)
@@ -56,14 +61,26 @@ def main() -> None:
                     op, scorable = build_contrast_operator(cands, bl.graph, bl.n_spots)
                     sc_df = fast_score_df(op, scorable, cands, case["X_P"], case["X_Q"])
                     covs = {r["rule"]: r for r in evaluate_partition_coverage(cands, sc_df, case["truth"])}
+                    covered_union = set().union(*(set(int(v) for v in m) for _, m in cands)) if cands else set()
                     bg_rows[src].append(float(covs["min"]["target_coverage"]))
                     bg_upper[src].append(float(covs["min"]["oracle_upper_coverage"]))
+                    bg_out[src].append(int(covs["min"]["outside_points"]))
+                    bg_excl[src].append(int(bl.n_spots - len(covered_union)))
+                    bg_sel_pts[src].append(int(covs["min"]["selected_point_count"]))
+                    bg_max_sz[src].append(int(max((len(m) for _, m in cands), default=0)))
             dose_out[bg_name] = {
                 src: {
                     "min_mean_coverage": round(float(np.mean(bg_rows[src])), 4),
                     "oracle_upper_coverage": round(float(np.mean(bg_upper[src])), 4),
+                    "mean_outside_points": round(float(np.mean(bg_out[src])), 2),
+                    "mean_excluded_spots": round(float(np.mean(bg_excl[src])), 2),
+                    "excluded_spots_min": int(min(bg_excl[src])),
+                    "excluded_spots_max": int(max(bg_excl[src])),
+                    "mean_excluded_pct": round(float(np.mean(bg_excl[src]) / bl.n_spots * 100.0), 2),
+                    "mean_selected_points": round(float(np.mean(bg_sel_pts[src])), 2),
+                    "mean_max_candidate_size": round(float(np.mean(bg_max_sz[src])), 2),
                 }
-                for src in ("F", "D1", "D1_filtered", "D2")
+                for src in srcs
             }
         pooled = {
             src: round(float(np.mean([dose_out[bg][src]["min_mean_coverage"] for bg in baselines])), 4)

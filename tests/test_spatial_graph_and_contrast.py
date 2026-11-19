@@ -60,3 +60,19 @@ def test_constant_features_fail_closed():
     res = local_molecular_contrast(np.arange(6), graph, np.zeros((30, 4)), n_null=19)
     assert res["status"] == "REJECT"
     assert res["reason"] == "constant_independent_features"
+
+
+def test_disjoint_perm_ref_and_str_loader(tmp_path):
+    from pathlib import Path
+    from spatial_edit_audit.baselines import evaluate_neighbor_augmented_clustering, score_dual_latent_views
+    from spatial_edit_audit.preprocessing import load_section_baseline
+
+    ref_npz = Path(__file__).resolve().parents[1] / "data" / "reference" / "B3_baseline.npz"
+    bl = load_section_baseline(str(ref_npz))
+    assert bl.name == "B3"
+    res = local_molecular_contrast(bl.members_by_tile[0], bl.graph, bl.p0, n_null=19, disjoint_perm_ref=True)
+    assert "null_p" in res
+    f1 = evaluate_neighbor_augmented_clustering(bl, bl.p0, bl.q0, bl.members_by_tile[0], n_clusters=None)
+    assert 0.0 <= f1 <= 1.0
+    dual = score_dual_latent_views(bl, bl.p0, bl.q0)
+    assert len(dual["selected"]["min"]) == budget_tile_count(0.03, bl.n_tiles)

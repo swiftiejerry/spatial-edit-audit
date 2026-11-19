@@ -40,15 +40,21 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run count-level raw-matrix perturbation sensitivity check.")
     parser.add_argument("--raw-dir", type=Path, default=ROOT / "data" / "raw")
     parser.add_argument("--b1-dir", type=Path, default=None, help="Optional explicit directory for B1 raw H5AD files.")
+    parser.add_argument("--b2-dir", type=Path, default=None, help="Optional explicit directory for B2 raw H5AD files.")
     parser.add_argument("--b3-dir", type=Path, default=None, help="Optional explicit directory for B3 raw H5AD files.")
+    parser.add_argument("--b4-dir", type=Path, default=None, help="Optional explicit directory for B4 raw H5AD files.")
     parser.add_argument("--replicates", type=int, default=5)
     parser.add_argument("--out-json", type=Path, default=ROOT / "results" / "count_level_verification.json")
     args = parser.parse_args()
 
     ref_dir = ROOT / "data" / "reference"
     out = {}
-    specs = [("B1", args.b1_dir or (args.raw_dir / "B1"), "adata_RNA.h5ad", "adata_ADT.h5ad", 2000, None),
-             ("B3", args.b3_dir or (args.raw_dir / "B3"), "adata_RNA.h5ad", "adata_ATAC.h5ad", 2000, 5000)]
+    specs = [
+        ("B1", args.b1_dir or (args.raw_dir / "B1"), "adata_RNA.h5ad", "adata_ADT.h5ad", 2000, None),
+        ("B2", args.b2_dir or (args.raw_dir / "B2"), "adata_RNA.h5ad", "adata_ADT.h5ad", 2000, None),
+        ("B3", args.b3_dir or (args.raw_dir / "B3"), "adata_RNA.h5ad", "adata_ATAC.h5ad", 2000, 5000),
+        ("B4", args.b4_dir or (args.raw_dir / "B4"), "adata_RNA.h5ad", "adata_ATAC.h5ad", 2000, 5000),
+    ]
 
     for bg_name, sec_dir, rna_fn, pair_fn, p_top, q_top in specs:
         rna_path = sec_dir / rna_fn
@@ -58,7 +64,8 @@ def main() -> None:
             continue
         bl = load_section_baseline(ref_dir / f"{bg_name}_baseline.npz")
         _, rna_counts, _ = read_h5ad_raw_and_coords(rna_path)
-        _, pair_counts, _ = read_h5ad_raw_and_coords(pair_path)
+        pair_regex = r"(?i)(?:mouse|rat).{0,10}igg|isotype" if "ADT" in pair_fn else None
+        _, pair_counts, _ = read_h5ad_raw_and_coords(pair_path, exclude_var_regex=pair_regex)
         r_feats = _top_variable_indices(rna_counts, 200)
         q_feats = _top_variable_indices(pair_counts, min(200, pair_counts.shape[1]))
 

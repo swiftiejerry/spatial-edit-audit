@@ -4,73 +4,185 @@
       "B1": {
         "F": {
           "min_mean_coverage": 0.42,
-          "oracle_upper_coverage": 0.9967
+          "oracle_upper_coverage": 0.9967,
+          "mean_outside_points": 82.57,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 90.97,
+          "mean_max_candidate_size": 30.0
         },
         "D1": {
           "min_mean_coverage": 0.9967,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 13.4,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 33.33,
+          "mean_max_candidate_size": 121.53
         },
         "D1_filtered": {
           "min_mean_coverage": 0.98,
-          "oracle_upper_coverage": 0.98
+          "oracle_upper_coverage": 0.98,
+          "mean_outside_points": 43.13,
+          "mean_excluded_spots": 66.17,
+          "excluded_spots_min": 36,
+          "excluded_spots_max": 111,
+          "mean_excluded_pct": 1.9,
+          "mean_selected_points": 62.73,
+          "mean_max_candidate_size": 121.53
         },
         "D2": {
           "min_mean_coverage": 0.9333,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 54.37,
+          "mean_excluded_spots": 1378.6,
+          "excluded_spots_min": 1088,
+          "excluded_spots_max": 1676,
+          "mean_excluded_pct": 39.57,
+          "mean_selected_points": 73.03,
+          "mean_max_candidate_size": 153.53
         }
       },
       "B2": {
         "F": {
           "min_mean_coverage": 0.3633,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 120.83,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 128.1,
+          "mean_max_candidate_size": 29.0
         },
         "D1": {
           "min_mean_coverage": 0.9917,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 17.53,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 37.37,
+          "mean_max_candidate_size": 125.5
         },
         "D1_filtered": {
           "min_mean_coverage": 0.9583,
-          "oracle_upper_coverage": 0.9667
+          "oracle_upper_coverage": 0.9667,
+          "mean_outside_points": 48.1,
+          "mean_excluded_spots": 46.07,
+          "excluded_spots_min": 31,
+          "excluded_spots_max": 61,
+          "mean_excluded_pct": 1.06,
+          "mean_selected_points": 67.27,
+          "mean_max_candidate_size": 125.5
         },
         "D2": {
           "min_mean_coverage": 0.9533,
-          "oracle_upper_coverage": 0.98
+          "oracle_upper_coverage": 0.98,
+          "mean_outside_points": 134.5,
+          "mean_excluded_spots": 925.43,
+          "excluded_spots_min": 744,
+          "excluded_spots_max": 1271,
+          "mean_excluded_pct": 21.39,
+          "mean_selected_points": 153.57,
+          "mean_max_candidate_size": 158.27
         }
       },
       "B3": {
         "F": {
           "min_mean_coverage": 0.345,
-          "oracle_upper_coverage": 0.8967
+          "oracle_upper_coverage": 0.8967,
+          "mean_outside_points": 49.83,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 56.73,
+          "mean_max_candidate_size": 29.0
         },
         "D1": {
           "min_mean_coverage": 0.0133,
-          "oracle_upper_coverage": 0.9833
+          "oracle_upper_coverage": 0.9833,
+          "mean_outside_points": 2.73,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 3.0,
+          "mean_max_candidate_size": 344.8
         },
         "D1_filtered": {
           "min_mean_coverage": 0.7533,
-          "oracle_upper_coverage": 0.9483
+          "oracle_upper_coverage": 0.9483,
+          "mean_outside_points": 1.0,
+          "mean_excluded_spots": 105.3,
+          "excluded_spots_min": 90,
+          "excluded_spots_max": 123,
+          "mean_excluded_pct": 5.4,
+          "mean_selected_points": 16.07,
+          "mean_max_candidate_size": 344.8
         },
         "D2": {
           "min_mean_coverage": 0.83,
-          "oracle_upper_coverage": 0.9967
+          "oracle_upper_coverage": 0.9967,
+          "mean_outside_points": 0.93,
+          "mean_excluded_spots": 1409.9,
+          "excluded_spots_min": 1238,
+          "excluded_spots_max": 1578,
+          "mean_excluded_pct": 72.34,
+          "mean_selected_points": 17.53,
+          "mean_max_candidate_size": 80.37
         }
       },
       "B4": {
         "F": {
           "min_mean_coverage": 0.3917,
-          "oracle_upper_coverage": 0.92
+          "oracle_upper_coverage": 0.92,
+          "mean_outside_points": 45.03,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 52.87,
+          "mean_max_candidate_size": 28.0
         },
         "D1": {
           "min_mean_coverage": 0.6467,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 2.43,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 15.37,
+          "mean_max_candidate_size": 159.93
         },
         "D1_filtered": {
           "min_mean_coverage": 0.9583,
-          "oracle_upper_coverage": 0.9617
+          "oracle_upper_coverage": 0.9617,
+          "mean_outside_points": 5.03,
+          "mean_excluded_spots": 62.47,
+          "excluded_spots_min": 47,
+          "excluded_spots_max": 79,
+          "mean_excluded_pct": 2.93,
+          "mean_selected_points": 24.2,
+          "mean_max_candidate_size": 159.93
         },
         "D2": {
           "min_mean_coverage": 1.0,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 1.7,
+          "mean_excluded_spots": 1453.43,
+          "excluded_spots_min": 1103,
+          "excluded_spots_max": 1606,
+          "mean_excluded_pct": 68.27,
+          "mean_selected_points": 21.7,
+          "mean_max_candidate_size": 90.4
         }
       }
     },
@@ -86,73 +198,185 @@
       "B1": {
         "F": {
           "min_mean_coverage": 0.1733,
-          "oracle_upper_coverage": 0.9967
+          "oracle_upper_coverage": 0.9967,
+          "mean_outside_points": 85.73,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 89.2,
+          "mean_max_candidate_size": 30.0
         },
         "D1": {
           "min_mean_coverage": 0.0333,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 24.43,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 25.1,
+          "mean_max_candidate_size": 121.77
         },
         "D1_filtered": {
           "min_mean_coverage": 0.1583,
-          "oracle_upper_coverage": 0.9717
+          "oracle_upper_coverage": 0.9717,
+          "mean_outside_points": 52.53,
+          "mean_excluded_spots": 66.5,
+          "excluded_spots_min": 36,
+          "excluded_spots_max": 111,
+          "mean_excluded_pct": 1.91,
+          "mean_selected_points": 55.7,
+          "mean_max_candidate_size": 121.77
         },
         "D2": {
           "min_mean_coverage": 0.0667,
-          "oracle_upper_coverage": 0.8583
+          "oracle_upper_coverage": 0.8583,
+          "mean_outside_points": 71.03,
+          "mean_excluded_spots": 1473.93,
+          "excluded_spots_min": 1320,
+          "excluded_spots_max": 1641,
+          "mean_excluded_pct": 42.31,
+          "mean_selected_points": 72.37,
+          "mean_max_candidate_size": 151.7
         }
       },
       "B2": {
         "F": {
           "min_mean_coverage": 0.1417,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 127.43,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 130.27,
+          "mean_max_candidate_size": 29.0
         },
         "D1": {
           "min_mean_coverage": 0.0617,
-          "oracle_upper_coverage": 1.0
+          "oracle_upper_coverage": 1.0,
+          "mean_outside_points": 27.37,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 28.6,
+          "mean_max_candidate_size": 125.37
         },
         "D1_filtered": {
           "min_mean_coverage": 0.2617,
-          "oracle_upper_coverage": 0.9767
+          "oracle_upper_coverage": 0.9767,
+          "mean_outside_points": 58.4,
+          "mean_excluded_spots": 45.43,
+          "excluded_spots_min": 31,
+          "excluded_spots_max": 62,
+          "mean_excluded_pct": 1.05,
+          "mean_selected_points": 63.63,
+          "mean_max_candidate_size": 125.37
         },
         "D2": {
           "min_mean_coverage": 0.075,
-          "oracle_upper_coverage": 0.7933
+          "oracle_upper_coverage": 0.7933,
+          "mean_outside_points": 140.7,
+          "mean_excluded_spots": 892.43,
+          "excluded_spots_min": 710,
+          "excluded_spots_max": 1221,
+          "mean_excluded_pct": 20.63,
+          "mean_selected_points": 142.2,
+          "mean_max_candidate_size": 157.73
         }
       },
       "B3": {
         "F": {
           "min_mean_coverage": 0.0583,
-          "oracle_upper_coverage": 0.8967
+          "oracle_upper_coverage": 0.8967,
+          "mean_outside_points": 53.93,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 55.1,
+          "mean_max_candidate_size": 29.0
         },
         "D1": {
           "min_mean_coverage": 0.0033,
-          "oracle_upper_coverage": 0.975
+          "oracle_upper_coverage": 0.975,
+          "mean_outside_points": 2.93,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 3.0,
+          "mean_max_candidate_size": 346.23
         },
         "D1_filtered": {
           "min_mean_coverage": 0.0333,
-          "oracle_upper_coverage": 0.915
+          "oracle_upper_coverage": 0.915,
+          "mean_outside_points": 5.23,
+          "mean_excluded_spots": 105.33,
+          "excluded_spots_min": 90,
+          "excluded_spots_max": 123,
+          "mean_excluded_pct": 5.4,
+          "mean_selected_points": 5.9,
+          "mean_max_candidate_size": 346.23
         },
         "D2": {
           "min_mean_coverage": 0.06,
-          "oracle_upper_coverage": 0.805
+          "oracle_upper_coverage": 0.805,
+          "mean_outside_points": 5.13,
+          "mean_excluded_spots": 1388.87,
+          "excluded_spots_min": 1207,
+          "excluded_spots_max": 1535,
+          "mean_excluded_pct": 71.26,
+          "mean_selected_points": 6.33,
+          "mean_max_candidate_size": 82.47
         }
       },
       "B4": {
         "F": {
           "min_mean_coverage": 0.1683,
-          "oracle_upper_coverage": 0.92
+          "oracle_upper_coverage": 0.92,
+          "mean_outside_points": 46.87,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 50.23,
+          "mean_max_candidate_size": 28.0
         },
         "D1": {
           "min_mean_coverage": 0.0067,
-          "oracle_upper_coverage": 0.995
+          "oracle_upper_coverage": 0.995,
+          "mean_outside_points": 3.23,
+          "mean_excluded_spots": 0.0,
+          "excluded_spots_min": 0,
+          "excluded_spots_max": 0,
+          "mean_excluded_pct": 0.0,
+          "mean_selected_points": 3.37,
+          "mean_max_candidate_size": 159.2
         },
         "D1_filtered": {
           "min_mean_coverage": 0.6117,
-          "oracle_upper_coverage": 0.9417
+          "oracle_upper_coverage": 0.9417,
+          "mean_outside_points": 7.8,
+          "mean_excluded_spots": 62.73,
+          "excluded_spots_min": 47,
+          "excluded_spots_max": 80,
+          "mean_excluded_pct": 2.95,
+          "mean_selected_points": 20.03,
+          "mean_max_candidate_size": 159.2
         },
         "D2": {
           "min_mean_coverage": 0.4283,
-          "oracle_upper_coverage": 0.7733
+          "oracle_upper_coverage": 0.7733,
+          "mean_outside_points": 5.0,
+          "mean_excluded_spots": 1492.33,
+          "excluded_spots_min": 1036,
+          "excluded_spots_max": 1741,
+          "mean_excluded_pct": 70.1,
+          "mean_selected_points": 13.57,
+          "mean_max_candidate_size": 88.93
         }
       }
     },

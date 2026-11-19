@@ -25,7 +25,7 @@ Original matrices trace to public repositories:
 - `B1`: SpatialGlue release (`Zenodo 10.5281/zenodo.10362607`).
 - `B2`: GEO `GSE263617` (`GSM8195495`, `GSM8195499`), retaining `4,326` of `4,337`
   public in-tissue barcodes (`11` omitted upstream via an undocumented filter) and `31`
-  ADT antibodies after excluding four mouse/rat IgG isotype controls.
+  non-isotype ADT antibodies (`4` mouse/rat IgG isotype controls excluded upstream in the curated H5AD; `build_reference_views.py --exclude-adt-regex` automatically removes matching controls when unfiltered GEO matrices are provided).
 - `B3` / `B4`: MISAR-seq (`NGDC OEP003285`, `NCBI PRJNA1081293`, `Zenodo 7714382`). On
   `B3`, local RNA counts match public raw matrix `E15_5-S1_raw_feature_bc_matrix.h5`
   identically (`max |diff| = 0`), whereas local ATAC contains `161,461` peaks vs.

@@ -21,11 +21,11 @@ def _stable_seed(members: np.ndarray, n_obs: int) -> int:
     return int.from_bytes(hashlib.sha256(raw.encode()).digest()[:8], "little") % (2**32)
 
 
-def robust_feature_scale(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Compute per-feature MAD x 1.4826 scale with sample-SD fallback when MAD <= 1e-12."""
+def robust_feature_scale(x: np.ndarray, *, ddof: int = 0) -> tuple[np.ndarray, np.ndarray]:
+    """Compute per-feature MAD x 1.4826 scale with population-SD (default ddof=0) fallback when MAD <= 1e-12."""
     med = np.median(x, axis=0)
     mad = np.median(np.abs(x - med), axis=0) * 1.4826
-    fallback = np.std(x, axis=0)
+    fallback = np.std(x, axis=0, ddof=int(ddof))
     scale = np.where((mad <= 1e-12) & (fallback > 1e-12), fallback, mad)
     valid = scale > 1e-12
     return scale, valid
@@ -42,6 +42,7 @@ def local_molecular_contrast(
     min_affected_fraction: float = 0.10,
     max_null_p: float = 0.05,
     precomputed_scale: tuple[np.ndarray, np.ndarray] | None = None,
+    disjoint_perm_ref: bool = False,
 ) -> dict[str, Any]:
     """Evaluate standardized local molecular contrast against a disjoint two-hop spatial ring."""
     members = np.asarray(members, dtype=int)
@@ -87,9 +88,15 @@ def local_molecular_contrast(
     rng = np.random.default_rng(_stable_seed(members, n_obs))
     null_effects = np.empty(int(n_null), dtype=np.float64)
     replace = len(controls) < len(members)
+    control_mean_full = x[controls][:, valid].mean(axis=0)
     for i in range(int(n_null)):
         draw = rng.choice(controls, size=len(members), replace=replace)
-        vals = np.abs(x[draw][:, valid].mean(axis=0) - x[controls][:, valid].mean(axis=0)) / scale[valid]
+        if disjoint_perm_ref and not replace and len(controls) > len(members):
+            rem = np.setdiff1d(controls, draw, assume_unique=False)
+            ref_mean = x[rem][:, valid].mean(axis=0)
+        else:
+            ref_mean = control_mean_full
+        vals = np.abs(x[draw][:, valid].mean(axis=0) - ref_mean) / scale[valid]
         null_effects[i] = float(np.mean(vals))
     null_p = float((1 + np.sum(null_effects >= effect)) / (1 + len(null_effects)))
 
@@ -141,10 +148,12 @@ def score_candidate_pool_fast(
     scorable: np.ndarray,
     x_p: np.ndarray,
     x_q: np.ndarray,
+    *,
+    ddof: int = 0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Vectorized scoring exact to ``local_molecular_contrast`` up to IEEE-754 rounding (<1e-12)."""
     def _score_one(x: np.ndarray) -> np.ndarray:
-        scale, valid = robust_feature_scale(x)
+        scale, valid = robust_feature_scale(x, ddof=ddof)
         if not np.any(valid):
             out = np.zeros(op.shape[0], dtype=np.float64)
             out[~scorable] = np.nan

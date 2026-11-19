@@ -207,9 +207,13 @@ def inject_poisson_count_shift(
     """Inject additive Poisson count elevation into raw UMI/fragment counts for pipeline robustness checks."""
     n_pick = max(4, int(round(affected_fraction * len(feature_indices))))
     chosen = rng.choice(feature_indices, size=min(n_pick, len(feature_indices)), replace=False)
-    dense = counts.toarray().astype(np.float64)
-    bg_means = np.maximum(dense[:, chosen].mean(axis=0), 0.1)
+    sub = counts.tocsc()[:, chosen].toarray().astype(np.float64)
+    bg_means = np.maximum(sub.mean(axis=0), 0.1)
     lam = max(0.0, float(fold_multiplier) - 1.0) * bg_means[None, :]
-    added = rng.poisson(np.broadcast_to(lam, (len(tile_spots), len(chosen))))
-    dense[np.ix_(tile_spots, chosen)] += added
-    return csr_matrix(dense)
+    added = rng.poisson(np.broadcast_to(lam, (len(tile_spots), len(chosen)))).astype(np.float64)
+    rows = np.repeat(np.asarray(tile_spots, dtype=np.int64), len(chosen))
+    cols = np.tile(np.asarray(chosen, dtype=np.int64), len(tile_spots))
+    delta = csr_matrix((added.ravel(), (rows, cols)), shape=counts.shape, dtype=np.float64)
+    out = (counts.astype(np.float64) + delta).tocsr()
+    out.sum_duplicates()
+    return out

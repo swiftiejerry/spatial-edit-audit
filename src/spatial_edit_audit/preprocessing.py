@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -52,8 +53,13 @@ def _decode_attr(val: Any) -> str:
     return str(val)
 
 
-def read_h5ad_raw_and_coords(path: Path) -> tuple[np.ndarray, csr_matrix, np.ndarray]:
+def read_h5ad_raw_and_coords(
+    path: Path | str,
+    *,
+    exclude_var_regex: str | None = None,
+) -> tuple[np.ndarray, csr_matrix, np.ndarray]:
     """Read strictly obs IDs, raw count matrix ``X``, and spatial coordinates without annotations."""
+    path = Path(path)
     with h5py.File(path, "r") as handle:
         obs = handle["obs"]
         idx_key = _decode_attr(obs.attrs.get("_index", "_index"))
@@ -66,7 +72,12 @@ def read_h5ad_raw_and_coords(path: Path) -> tuple[np.ndarray, csr_matrix, np.nda
             raise ValueError(f"Non-unique or empty spot IDs in {path}")
         var = handle["var"]
         var_key = _decode_attr(var.attrs.get("_index", "_index"))
-        n_vars = int(len(var[var_key]))
+        var_ds = var[var_key]
+        var_names = np.asarray(
+            var_ds.asstr()[()] if h5py.check_string_dtype(var_ds.dtype) is not None else var_ds[()],
+            dtype=str,
+        )
+        n_vars = int(len(var_names))
 
         x_node = handle["X"]
         if isinstance(x_node, h5py.Group):
@@ -95,6 +106,12 @@ def read_h5ad_raw_and_coords(path: Path) -> tuple[np.ndarray, csr_matrix, np.nda
         counts.eliminate_zeros()
         if counts.shape != (len(ids), n_vars):
             raise ValueError(f"Shape mismatch in {path}: {counts.shape} vs ({len(ids)}, {n_vars})")
+        if exclude_var_regex:
+            pat = re.compile(exclude_var_regex)
+            keep_cols = np.asarray([not bool(pat.search(str(vn))) for vn in var_names], dtype=bool)
+            if not np.any(keep_cols):
+                raise ValueError(f"Regex {exclude_var_regex!r} excluded all features in {path}")
+            counts = counts[:, keep_cols].tocsr()
         if not np.isfinite(counts.data).all() or np.any(counts.data < 0):
             raise ValueError(f"Non-finite or negative count entries in {path}")
         coords = np.asarray(handle["obsm/spatial"], dtype=np.float64)
@@ -122,7 +139,8 @@ def project_count_matrix_svd(
     mat = mat[:, keep].tocsr()
 
     totals = np.asarray(mat.sum(axis=1)).ravel()
-    factors = np.where(totals > 0, 1e4 / totals, 0.0)
+    factors = np.zeros_like(totals, dtype=np.float64)
+    np.divide(1e4, totals, out=factors, where=totals > 0)
     mat = (diags(factors, format="csr") @ mat).tocsr()
     mat.data = np.log1p(mat.data)
 
@@ -208,16 +226,18 @@ def _assemble_section_baseline(
 def build_section_baseline(
     name: str,
     section_index: int,
-    rna_h5ad: Path,
-    paired_h5ad: Path,
+    rna_h5ad: Path | str,
+    paired_h5ad: Path | str,
     *,
     p_top_features: int = 2000,
     q_top_features: int | None = None,
+    exclude_p_regex: str | None = None,
+    exclude_q_regex: str | None = None,
     seed: int = 20261111,
 ) -> SectionBaseline:
     """Build a complete baseline section directly from paired raw H5AD files."""
-    ids_p, counts_p, coords_p = read_h5ad_raw_and_coords(rna_h5ad)
-    ids_q, counts_q, coords_q = read_h5ad_raw_and_coords(paired_h5ad)
+    ids_p, counts_p, coords_p = read_h5ad_raw_and_coords(rna_h5ad, exclude_var_regex=exclude_p_regex)
+    ids_q, counts_q, coords_q = read_h5ad_raw_and_coords(paired_h5ad, exclude_var_regex=exclude_q_regex)
     if not np.array_equal(ids_p, ids_q):
         raise ValueError(f"{name}: RNA and paired spot IDs disagree")
     if not np.array_equal(coords_p, coords_q):
@@ -237,8 +257,13 @@ def build_section_baseline(
     )
 
 
-def load_section_baseline(npz_path: Path, name: str | None = None, section_index: int | None = None) -> SectionBaseline:
+def load_section_baseline(
+    npz_path: Path | str,
+    name: str | None = None,
+    section_index: int | None = None,
+) -> SectionBaseline:
     """Load an offline compressed baseline bundle produced under ``data/reference/``."""
+    npz_path = Path(npz_path)
     resolved_name = name or npz_path.stem.split("_")[0]
     resolved_idx = section_index if section_index is not None else int(resolved_name[1:])
     with np.load(npz_path, allow_pickle=False) as packed:

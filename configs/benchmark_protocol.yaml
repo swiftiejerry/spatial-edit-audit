@@ -10,28 +10,37 @@ preprocessing:
   rna_top_variable_genes: 2000
   atac_top_variable_peaks: 5000
   adt_top_features: null
+  exclude_adt_regex: "(?i)(?:mouse|rat).{0,10}igg|isotype"
   mad_scale_factor: 1.4826
+  fallback_sd_ddof: 0
 
 spatial_graph:
   knn_k: 6
   symmetrization: max_undirected
   target_tile_size: 20
   min_tile_size: 5
+  kmeans_n_clusters_rule: "round(n_b / 20)"
+  kmeans_tile_n_init: 1
+  kmeans_partition_n_init: 10
   low_departure_max: 0.20
   high_departure_min: 0.35
 
 blocks:
+  block_0_development:
+    purpose: parameter_tuning_and_negative_control_development
   block_1_calibration:
     n_per_section: 199
     sampling: uniform_n1_n2_n3
     order_statistic_k: 190
     nominal_alpha: 0.05
+    shift_axes_per_channel: 4
+    shift_signs: uniform_pm_1
   block_2_main:
     n_per_stratum_per_section: 20
     strata:
       N1: pure_noise
-      N2: isolated_unilateral_decoys
-      N3: adjacent_unilateral_decoys
+      N2: isolated_unilateral_decoys_A_and_B
+      N3: adjacent_unilateral_decoys_A_and_B
       S4: concordant_dose_1.0
       S5: concordant_dose_2.0
       S6: concordant_dose_3.0

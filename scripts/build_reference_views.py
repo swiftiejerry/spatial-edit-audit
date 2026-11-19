@@ -25,6 +25,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build offline SVD baseline bundles from raw H5AD files.")
     parser.add_argument("--raw-dir", type=Path, default=ROOT / "data" / "raw")
     parser.add_argument("--out-dir", type=Path, default=ROOT / "data" / "reference")
+    parser.add_argument(
+        "--exclude-adt-regex",
+        type=str,
+        default=r"(?i)(?:mouse|rat).{0,10}igg|isotype",
+        help="Regex filtering mouse/rat IgG isotype control antibodies from raw ADT matrices.",
+    )
     args = parser.parse_args()
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -34,7 +40,16 @@ def main() -> None:
         if not (rna_path.exists() and pair_path.exists()):
             print(f"Skipping {name}: raw inputs not present at {args.raw_dir}")
             continue
-        bl = build_section_baseline(name, idx, rna_path, pair_path, p_top_features=p_top, q_top_features=q_top)
+        q_regex = args.exclude_adt_regex if "ADT" in pair_rel else None
+        bl = build_section_baseline(
+            name,
+            idx,
+            rna_path,
+            pair_path,
+            p_top_features=p_top,
+            q_top_features=q_top,
+            exclude_q_regex=q_regex,
+        )
         out = args.out_dir / f"{name}_baseline.npz"
         np.savez_compressed(
             out,

@@ -35,7 +35,7 @@ def evaluate_neighbor_augmented_clustering(
     target_indices: np.ndarray,
     *,
     neighbor_weight: float = 0.0,
-    n_clusters: int = 12,
+    n_clusters: int | None = 12,
     seed: int = 20261111,
 ) -> float:
     """Run BANKSY-style spatial neighbor-augmented clustering and return best-matching target F1."""
@@ -43,7 +43,8 @@ def evaluate_neighbor_augmented_clustering(
     feat = np.hstack([x_p, x_q])
     if neighbor_weight > 0.0:
         feat = np.hstack([feat, float(neighbor_weight) * (a_norm @ feat)])
-    preds = KMeans(n_clusters=int(n_clusters), n_init=3, random_state=seed).fit_predict(feat)
+    k_eff = baseline.n_tiles if n_clusters is None else int(n_clusters)
+    preds = KMeans(n_clusters=k_eff, n_init=3, random_state=seed).fit_predict(feat)
     t_mask = np.zeros(baseline.n_spots, dtype=bool)
     t_mask[np.asarray(target_indices, dtype=int)] = True
     n_t = int(t_mask.sum())
@@ -56,6 +57,32 @@ def evaluate_neighbor_augmented_clustering(
             if f1 > best_f1:
                 best_f1 = f1
     return float(best_f1)
+
+
+def score_dual_latent_views(
+    baseline: SectionBaseline,
+    x_p: np.ndarray,
+    x_q: np.ndarray,
+    *,
+    budget_fraction: float = 0.03,
+) -> dict[str, Any]:
+    """Score two representation matrices under P, Q, mean, and conjunctive min top-k selection."""
+    candidates = [(f"T{i:04d}", m) for i, m in enumerate(baseline.members_by_tile)]
+    op, scorable = build_contrast_operator(candidates, baseline.graph, baseline.n_spots)
+    ep, eq = score_candidate_pool_fast(op, scorable, x_p, x_q)
+    rules = {
+        "P": ep,
+        "Q": eq,
+        "mean": 0.5 * (ep + eq),
+        "min": np.minimum(ep, eq),
+    }
+    m_cap = budget_tile_count(budget_fraction, baseline.n_tiles)
+    idx = np.flatnonzero(scorable)
+    selected = {
+        name: idx[np.lexsort((idx, -scores[idx]))][:m_cap].tolist()
+        for name, scores in rules.items()
+    }
+    return {"scores": rules, "selected": selected}
 
 
 def score_smoothed_views(

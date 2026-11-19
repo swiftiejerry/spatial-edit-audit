@@ -25,7 +25,13 @@ from spatial_edit_audit.contrast import RULES, budget_tile_count, build_contrast
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run Block 1 calibration and Block 2 main evaluations offline.")
     parser.add_argument("--sections", nargs="+", default=["B1", "B2", "B3", "B4"])
-    parser.add_argument("--out", type=Path, default=None, help="Optional path to save per-case CSV outputs.")
+    parser.add_argument("--out", type=Path, default=None, help="Optional CSV file path to save per-case outputs.")
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="Optional directory to write main_benchmark.csv and summary.json.",
+    )
     args = parser.parse_args()
 
     ref_dir = ROOT / "data" / "reference"
@@ -83,6 +89,10 @@ def main() -> None:
         "s9_3pct_hit_rates": {r: round(float(df[df["stratum"] == 9][f"hit_{r}_0.03"].mean()), 4) for r in RULES},
         "null_false_accepts_of_240": {r: int(null_df[f"cal_any_{r}"].sum()) for r in RULES},
     }
+    if args.output_dir is not None:
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+        df.to_csv(args.output_dir / "main_benchmark.csv", index=False, encoding="utf-8")
+        (args.output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=2))
 
 

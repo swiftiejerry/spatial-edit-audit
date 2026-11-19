@@ -40,7 +40,7 @@ $$s^{(M)}_j = \begin{cases}
 1.4826\,\mathrm{MAD}_j(X^{(M)}), & \text{if } 1.4826\,\mathrm{MAD}_j > 10^{-12},\\
 \mathrm{SD}_j(X^{(M)}), & \text{if } 1.4826\,\mathrm{MAD}_j \le 10^{-12} \text{ and } \mathrm{SD}_j > 10^{-12},
 \end{cases}$$
-and let $V = \{j \in \{1,\dots,d\} : s^{(M)}_j > 10^{-12}\}$ denote the **valid feature set**.
+where $\mathrm{SD}_j$ denotes the population standard deviation (`ddof=0`) over all $n_b$ spots in $X^{(M)}$, and let $V = \{j \in \{1,\dots,d\} : s^{(M)}_j > 10^{-12}\}$ denote the **valid feature set** (`ddof=0` vs `ddof=1` shows zero numerical discrepancy across every benchmark view).
 The standardized two-hop contrast is
 $$e_M(A) = \frac{1}{|V|} \sum_{j \in V} \frac{\left|\bar{x}^{(M)}_{A,j} - \bar{x}^{(M)}_{C(A),j}\right|}{s^{(M)}_j}.$$
 
@@ -65,8 +65,8 @@ confirmation view $X_Q$, per-case clustering $I_{\mathrm{case}}$ (8-cluster `KMe
 6. **Local molecular contrast + permutation test on $Q$**:
    - $e_Q(A) \ge 0.75$,
    - fraction of valid features with standardized difference $\ge 0.75$ is $\ge 0.10$,
-   - one-sided empirical permutation $p = \frac{1 + \sum_{r=1}^{199} \mathbf{1}[e_Q(D_r) \ge e_Q(A)]}{200} \le 0.05$,
-     where each null draw $D_r$ samples $|A|$ spots from control ring $C(A)$ (without replacement when $|C(A)| \ge |A|$).
+   - one-sided empirical permutation $p = \frac{1 + \sum_{r=1}^{199} \mathbf{1}[e_Q(D_r; C(A)) \ge e_Q(A)]}{200} \le 0.05$,
+     where each null draw $D_r$ samples $|A|$ spots from control ring $C(A)$ (without replacement when $|C(A)| \ge |A|$) and compares the mean of $D_r$ against the full control-ring mean $C(A)$ (`disjoint_perm_ref=False`; switching to strict complement leave-out `C(A) \setminus D_r` via `disjoint_perm_ref=True` flips only `2/160` `S6`/`S8` target decisions).
 7. **Bootstrap gain lower confidence bound ($\mathrm{gain}_{\mathrm{LCB}}$)**:
    Draw $B=199$ IID bootstrap resamples $(M_b^*, C_b^*)$ with replacement from $A$ and $C(A)$,
    recompute standardized contrast $e_Q(M_b^*; C_b^*)$ against full-section feature scales $s^{(Q)}$,

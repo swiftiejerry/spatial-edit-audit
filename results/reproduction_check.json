@@ -1,0 +1,9 @@
+{
+  "status": "REPRODUCED_FROM_OFFLINE_NPZ",
+  "static_rows_verified": 593,
+  "secondary_rows_verified": 1440,
+  "counterfactual_rows_verified": 160,
+  "main_720_hit_min_3pct_sum": 329,
+  "main_720_cal_any_min_sum": 278,
+  "main_720_m0_any_sum": 453
+}
