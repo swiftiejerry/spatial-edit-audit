@@ -1,0 +1,65 @@
+{
+  "calibrated_dual_comparator": {
+    "cap_5pct": {
+      "null_false_accepts_of_240": 19,
+      "b2_null_of_60": 3,
+      "dose_1_4_targets_of_320": 160,
+      "s6_s7_targets_of_160": 146,
+      "s8_cross_boundary_of_80": 70,
+      "s9_asymmetric_of_80": 6,
+      "zero_budget_ties_dose_1_4": 145
+    },
+    "cap_15pct": {
+      "null_false_accepts_of_240": 19,
+      "b2_null_of_60": 3,
+      "dose_1_4_targets_of_320": 160,
+      "s6_s7_targets_of_160": 146,
+      "s8_cross_boundary_of_80": 70,
+      "s9_asymmetric_of_80": 6,
+      "zero_budget_ties_dose_1_4": 145
+    }
+  },
+  "graph_diffusion_smoothing": {
+    "alpha_0.0": {
+      "s6_hit_rate": 1.0,
+      "s8_hit_rate": 0.975,
+      "s6_median_min": 0.7989,
+      "s8_median_min": 0.8449
+    },
+    "alpha_0.3": {
+      "s6_hit_rate": 1.0,
+      "s8_hit_rate": 0.975,
+      "s6_median_min": 0.8782,
+      "s8_median_min": 0.9441
+    },
+    "alpha_0.5": {
+      "s6_hit_rate": 1.0,
+      "s8_hit_rate": 0.975,
+      "s6_median_min": 0.9327,
+      "s8_median_min": 0.997
+    },
+    "alpha_0.7": {
+      "s6_hit_rate": 1.0,
+      "s8_hit_rate": 0.9625,
+      "s6_median_min": 0.9565,
+      "s8_median_min": 1.027
+    }
+  },
+  "neighbor_augmented_clustering": {
+    "lambda_0.0": {
+      "S6_mean_best_f1": 0.2559,
+      "S8_mean_best_f1": 0.1891,
+      "S9_mean_best_f1": 0.1742
+    },
+    "lambda_0.3": {
+      "S6_mean_best_f1": 0.2821,
+      "S8_mean_best_f1": 0.218,
+      "S9_mean_best_f1": 0.1758
+    },
+    "lambda_0.8": {
+      "S6_mean_best_f1": 0.4029,
+      "S8_mean_best_f1": 0.2328,
+      "S9_mean_best_f1": 0.158
+    }
+  }
+}

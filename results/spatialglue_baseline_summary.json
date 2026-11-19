@@ -1,0 +1,122 @@
+{
+  "B1": {
+    "S6_concordant": {
+      "sg_contrast_3pct_hit": 0.6,
+      "sg_kmeans_best_f1": 0.1158,
+      "decoy_a_3pct_rate": 1.0,
+      "decoy_b_3pct_rate": 0.8,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "S8_boundary": {
+      "sg_contrast_3pct_hit": 1.0,
+      "sg_kmeans_best_f1": 0.1142,
+      "decoy_a_3pct_rate": 0.8,
+      "decoy_b_3pct_rate": 0.6,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "S9_asymmetric": {
+      "sg_contrast_3pct_hit": 0.8,
+      "sg_kmeans_best_f1": 0.1198,
+      "decoy_a_3pct_rate": 0.8,
+      "decoy_b_3pct_rate": 1.0,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "N2_decoys": {
+      "sg_contrast_3pct_hit": null,
+      "sg_kmeans_best_f1": null,
+      "decoy_a_3pct_rate": 0.8,
+      "decoy_b_3pct_rate": 0.4,
+      "any_decoy_3pct_rate": 0.8
+    }
+  },
+  "B2": {
+    "S6_concordant": {
+      "sg_contrast_3pct_hit": 0.8,
+      "sg_kmeans_best_f1": 0.1146,
+      "decoy_a_3pct_rate": 0.4,
+      "decoy_b_3pct_rate": 1.0,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "S8_boundary": {
+      "sg_contrast_3pct_hit": 0.8,
+      "sg_kmeans_best_f1": 0.0708,
+      "decoy_a_3pct_rate": 0.6,
+      "decoy_b_3pct_rate": 0.8,
+      "any_decoy_3pct_rate": 0.8
+    },
+    "S9_asymmetric": {
+      "sg_contrast_3pct_hit": 1.0,
+      "sg_kmeans_best_f1": 0.0883,
+      "decoy_a_3pct_rate": 0.8,
+      "decoy_b_3pct_rate": 0.6,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "N2_decoys": {
+      "sg_contrast_3pct_hit": null,
+      "sg_kmeans_best_f1": null,
+      "decoy_a_3pct_rate": 0.4,
+      "decoy_b_3pct_rate": 0.6,
+      "any_decoy_3pct_rate": 0.8
+    }
+  },
+  "B3": {
+    "S6_concordant": {
+      "sg_contrast_3pct_hit": 1.0,
+      "sg_kmeans_best_f1": 0.2745,
+      "decoy_a_3pct_rate": 0.8,
+      "decoy_b_3pct_rate": 0.2,
+      "any_decoy_3pct_rate": 0.8
+    },
+    "S8_boundary": {
+      "sg_contrast_3pct_hit": 0.8,
+      "sg_kmeans_best_f1": 0.1942,
+      "decoy_a_3pct_rate": 1.0,
+      "decoy_b_3pct_rate": 0.6,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "S9_asymmetric": {
+      "sg_contrast_3pct_hit": 0.8,
+      "sg_kmeans_best_f1": 0.2041,
+      "decoy_a_3pct_rate": 0.4,
+      "decoy_b_3pct_rate": 0.8,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "N2_decoys": {
+      "sg_contrast_3pct_hit": null,
+      "sg_kmeans_best_f1": null,
+      "decoy_a_3pct_rate": 0.8,
+      "decoy_b_3pct_rate": 1.0,
+      "any_decoy_3pct_rate": 1.0
+    }
+  },
+  "B4": {
+    "S6_concordant": {
+      "sg_contrast_3pct_hit": 1.0,
+      "sg_kmeans_best_f1": 0.4182,
+      "decoy_a_3pct_rate": 0.2,
+      "decoy_b_3pct_rate": 0.6,
+      "any_decoy_3pct_rate": 0.6
+    },
+    "S8_boundary": {
+      "sg_contrast_3pct_hit": 1.0,
+      "sg_kmeans_best_f1": 0.214,
+      "decoy_a_3pct_rate": 0.4,
+      "decoy_b_3pct_rate": 0.8,
+      "any_decoy_3pct_rate": 0.8
+    },
+    "S9_asymmetric": {
+      "sg_contrast_3pct_hit": 0.6,
+      "sg_kmeans_best_f1": 0.1594,
+      "decoy_a_3pct_rate": 0.8,
+      "decoy_b_3pct_rate": 0.6,
+      "any_decoy_3pct_rate": 1.0
+    },
+    "N2_decoys": {
+      "sg_contrast_3pct_hit": null,
+      "sg_kmeans_best_f1": null,
+      "decoy_a_3pct_rate": 0.2,
+      "decoy_b_3pct_rate": 0.4,
+      "any_decoy_3pct_rate": 0.6
+    }
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "dose_6.0": {
+    "by_section": {
+      "B1": {
+        "F": {
+          "min_mean_coverage": 0.42,
+          "oracle_upper_coverage": 0.9967
+        },
+        "D1": {
+          "min_mean_coverage": 0.9967,
+          "oracle_upper_coverage": 1.0
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.98,
+          "oracle_upper_coverage": 0.98
+        },
+        "D2": {
+          "min_mean_coverage": 0.9333,
+          "oracle_upper_coverage": 1.0
+        }
+      },
+      "B2": {
+        "F": {
+          "min_mean_coverage": 0.3633,
+          "oracle_upper_coverage": 1.0
+        },
+        "D1": {
+          "min_mean_coverage": 0.9917,
+          "oracle_upper_coverage": 1.0
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.9583,
+          "oracle_upper_coverage": 0.9667
+        },
+        "D2": {
+          "min_mean_coverage": 0.9533,
+          "oracle_upper_coverage": 0.98
+        }
+      },
+      "B3": {
+        "F": {
+          "min_mean_coverage": 0.345,
+          "oracle_upper_coverage": 0.8967
+        },
+        "D1": {
+          "min_mean_coverage": 0.0133,
+          "oracle_upper_coverage": 0.9833
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.7533,
+          "oracle_upper_coverage": 0.9483
+        },
+        "D2": {
+          "min_mean_coverage": 0.83,
+          "oracle_upper_coverage": 0.9967
+        }
+      },
+      "B4": {
+        "F": {
+          "min_mean_coverage": 0.3917,
+          "oracle_upper_coverage": 0.92
+        },
+        "D1": {
+          "min_mean_coverage": 0.6467,
+          "oracle_upper_coverage": 1.0
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.9583,
+          "oracle_upper_coverage": 0.9617
+        },
+        "D2": {
+          "min_mean_coverage": 1.0,
+          "oracle_upper_coverage": 1.0
+        }
+      }
+    },
+    "pooled_mean_coverage": {
+      "F": 0.38,
+      "D1": 0.6621,
+      "D1_filtered": 0.9125,
+      "D2": 0.9292
+    }
+  },
+  "dose_3.0": {
+    "by_section": {
+      "B1": {
+        "F": {
+          "min_mean_coverage": 0.1733,
+          "oracle_upper_coverage": 0.9967
+        },
+        "D1": {
+          "min_mean_coverage": 0.0333,
+          "oracle_upper_coverage": 1.0
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.1583,
+          "oracle_upper_coverage": 0.9717
+        },
+        "D2": {
+          "min_mean_coverage": 0.0667,
+          "oracle_upper_coverage": 0.8583
+        }
+      },
+      "B2": {
+        "F": {
+          "min_mean_coverage": 0.1417,
+          "oracle_upper_coverage": 1.0
+        },
+        "D1": {
+          "min_mean_coverage": 0.0617,
+          "oracle_upper_coverage": 1.0
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.2617,
+          "oracle_upper_coverage": 0.9767
+        },
+        "D2": {
+          "min_mean_coverage": 0.075,
+          "oracle_upper_coverage": 0.7933
+        }
+      },
+      "B3": {
+        "F": {
+          "min_mean_coverage": 0.0583,
+          "oracle_upper_coverage": 0.8967
+        },
+        "D1": {
+          "min_mean_coverage": 0.0033,
+          "oracle_upper_coverage": 0.975
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.0333,
+          "oracle_upper_coverage": 0.915
+        },
+        "D2": {
+          "min_mean_coverage": 0.06,
+          "oracle_upper_coverage": 0.805
+        }
+      },
+      "B4": {
+        "F": {
+          "min_mean_coverage": 0.1683,
+          "oracle_upper_coverage": 0.92
+        },
+        "D1": {
+          "min_mean_coverage": 0.0067,
+          "oracle_upper_coverage": 0.995
+        },
+        "D1_filtered": {
+          "min_mean_coverage": 0.6117,
+          "oracle_upper_coverage": 0.9417
+        },
+        "D2": {
+          "min_mean_coverage": 0.4283,
+          "oracle_upper_coverage": 0.7733
+        }
+      }
+    },
+    "pooled_mean_coverage": {
+      "F": 0.1354,
+      "D1": 0.0262,
+      "D1_filtered": 0.2662,
+      "D2": 0.1575
+    }
+  }
+}

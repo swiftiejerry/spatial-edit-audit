@@ -1,0 +1,30 @@
+{
+  "B1": {
+    "concordant_2.5x": {
+      "P": 4,
+      "Q": 2,
+      "mean": 2,
+      "min": 4
+    },
+    "asymmetric_4.0x_1.2x": {
+      "P": 4,
+      "Q": 1,
+      "mean": 3,
+      "min": 1
+    }
+  },
+  "B3": {
+    "concordant_2.5x": {
+      "P": 2,
+      "Q": 1,
+      "mean": 0,
+      "min": 1
+    },
+    "asymmetric_4.0x_1.2x": {
+      "P": 3,
+      "Q": 0,
+      "mean": 0,
+      "min": 0
+    }
+  }
+}

@@ -1,0 +1,42 @@
+# Background spatial multi-omics tissue carriers (reference baselines bundled under data/reference/)
+sections:
+  B1:
+    section_index: 1
+    tissue: Human lymph node (slice 1)
+    modalities: [RNA, ADT]
+    n_spots: 3484
+    n_tiles: 174
+    n_scorable_tiles: 174
+    retained_features: [2000, 31]
+    bundle_file: data/reference/B1_baseline.npz
+    accession: SpatialGlue Zenodo 10362607
+  B2:
+    section_index: 2
+    tissue: Human tonsil (slice 1)
+    modalities: [RNA, ADT]
+    n_spots: 4326
+    n_tiles: 216
+    n_scorable_tiles: 216
+    retained_features: [2000, 31]
+    bundle_file: data/reference/B2_baseline.npz
+    accession: GEO GSE263617
+  B3:
+    section_index: 3
+    tissue: Mouse embryonic brain E15.5
+    modalities: [RNA, ATAC]
+    n_spots: 1949
+    n_tiles: 97
+    n_scorable_tiles: 95
+    retained_features: [2000, 5000]
+    bundle_file: data/reference/B3_baseline.npz
+    accession: NGDC OEP003285 / NCBI PRJNA1081293 / Zenodo 7714382
+  B4:
+    section_index: 4
+    tissue: Mouse embryonic brain E18.5
+    modalities: [RNA, ATAC]
+    n_spots: 2129
+    n_tiles: 106
+    n_scorable_tiles: 106
+    retained_features: [2000, 5000]
+    bundle_file: data/reference/B4_baseline.npz
+    accession: NGDC OEP003285 / NCBI PRJNA1081293
