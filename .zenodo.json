@@ -1,0 +1,33 @@
+{
+  "title": "spatial-edit-audit: controlled simulation and counterfactual audit toolkit for selective local spatial multi-omics edits",
+  "description": "<p>A deterministic, annotation-blind testbed for evaluating selective local editors on spatial multi-omics sections. It is built on four public tissue sections (11,888 spots partitioned into 593 candidate tiles) and isolates four evaluation artifacts: channel-aggregation versus unilateral decoys, batch-quota coupling, single-pool split-conformal calibration, and static-reference circularity. The package ships the simulation engine, contrast and calibration scorers, external baseline wrappers (SpatialGlue, BANKSY-style neighbourhood smoothing, linear graph diffusion), raw-count and lattice sensitivity checks, and scripts that reproduce every frozen table from offline compressed baselines.</p>",
+  "upload_type": "software",
+  "publication_date": "2026-11-20",
+  "creators": [
+    {
+      "name": "Zuo, Diandian",
+      "affiliation": "Shenzhen MSU-BIT University",
+      "orcid": ""
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "version": "1.0.0",
+  "keywords": [
+    "spatial multi-omics",
+    "selective prediction",
+    "benchmark methodology",
+    "conformal calibration",
+    "counterfactual audit",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://zenodo.org/records/24388258",
+      "resource_type": "publication-preprint"
+    }
+  ],
+  "communities": [],
+  "language": "eng"
+}

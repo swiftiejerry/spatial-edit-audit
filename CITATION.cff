@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "spatial-edit-audit: controlled simulation and counterfactual audit toolkit for selective local spatial multi-omics edits"
+abstract: "A deterministic, annotation-blind testbed for evaluating selective local editors on spatial multi-omics sections. Built on four public tissue sections (11,888 spots; 593 candidate tiles), it isolates channel-aggregation versus unilateral decoys, batch-quota coupling, single-pool split-conformal calibration, and static-reference circularity, and ships scripts that reproduce every frozen table from offline baselines."
+version: 1.0.0
+date-released: "2026-11-20"
+license: MIT
+repository-code: "https://github.com/swiftiejerry/spatial-edit-audit"
+keywords:
+  - spatial multi-omics
+  - selective prediction
+  - benchmark methodology
+  - conformal calibration
+  - counterfactual audit
+  - reproducibility
+authors:
+  - family-names: Zuo
+    given-names: Diandian
+    affiliation: Shenzhen MSU-BIT University
+    email: zuodiandian2@qq.com

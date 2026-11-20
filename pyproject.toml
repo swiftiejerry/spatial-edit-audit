@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spatial-edit-audit"
-version = "0.1.0"
+version = "1.0.0"
 description = "Controlled simulation and counterfactual audit toolkit for evaluating selective local spatial multi-omics edits."
 readme = "README.md"
 license = { text = "MIT" }

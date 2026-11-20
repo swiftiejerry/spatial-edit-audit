@@ -110,6 +110,26 @@ OPENBLAS_NUM_THREADS=1 python scripts/run_counterfactual_audit.py
 - This toolkit evaluates annotation-blind local statistical detection, split-conformal null calibration, and gate interactions under controlled PCG64 additive and Poisson raw-count perturbations across four fixed spatial multi-omics sections.
 - Reported bootstrap intervals measure Monte Carlo resampling variability conditional on these four sections rather than cross-patient biological generalization across external donor cohorts.
 
+
+## Citation
+
+If you use this software, please cite:
+
+Diandian Zuo. (2026). spatial-edit-audit: controlled simulation and counterfactual audit toolkit for selective local spatial multi-omics edits (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24388257
+
+```bibtex
+@software{zuo2026spatialeditaudit,
+  author = {Zuo, Diandian},
+  title = {spatial-edit-audit: controlled simulation and counterfactual audit toolkit for selective local spatial multi-omics edits},
+  year = {2026},
+  version = {1.0.0},
+  month = nov,
+  publisher = {Zenodo},
+  doi = {10.5281/zenodo.24388257},
+  url = {https://github.com/swiftiejerry/spatial-edit-audit}
+}
+```
+
 ## License
 
 Released under the [MIT License](LICENSE).
