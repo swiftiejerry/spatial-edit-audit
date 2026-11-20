@@ -7,6 +7,7 @@ version: 1.0.0
 date-released: "2026-11-20"
 license: MIT
 repository-code: "https://github.com/swiftiejerry/spatial-edit-audit"
+doi: "10.5281/zenodo.24389148"
 keywords:
   - spatial multi-omics
   - selective prediction

@@ -1,5 +1,8 @@
 # spatial-edit-audit
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24389147.svg)](https://doi.org/10.5281/zenodo.24389147)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Controlled simulation, calibration, and counterfactual auditing suite for evaluating selective local spatial multi-omics edits.
 
 ## Overview
@@ -115,7 +118,7 @@ OPENBLAS_NUM_THREADS=1 python scripts/run_counterfactual_audit.py
 
 If you use this software, please cite:
 
-Diandian Zuo. (2026). spatial-edit-audit: controlled simulation and counterfactual audit toolkit for selective local spatial multi-omics edits (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24388257
+Diandian Zuo. (2026). spatial-edit-audit: controlled simulation and counterfactual audit toolkit for selective local spatial multi-omics edits (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24389148
 
 ```bibtex
 @software{zuo2026spatialeditaudit,
@@ -125,8 +128,9 @@ Diandian Zuo. (2026). spatial-edit-audit: controlled simulation and counterfactu
   version = {1.0.0},
   month = nov,
   publisher = {Zenodo},
-  doi = {10.5281/zenodo.24388257},
+  doi = {10.5281/zenodo.24389148},
   url = {https://github.com/swiftiejerry/spatial-edit-audit}
+  note = {Concept DOI 10.5281/zenodo.24389147}
 }
 ```
 
